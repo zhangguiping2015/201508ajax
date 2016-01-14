@@ -7,6 +7,7 @@ Promise.prototype = {
     done:function(fn){
         this.onDone = fn;
         return this;
+        console.log(this);
     },
     fail:function(fn){
         this.onFail = fn;
