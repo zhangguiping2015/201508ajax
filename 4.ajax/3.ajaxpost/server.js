@@ -19,9 +19,9 @@ http.createServer(function(req,res){
     //当路径为根目录的时候
     if(pathname == '/'){
         //读取本目录下的index.html文件
-        fs.readFile('./index.html',function(err,xx){
+        fs.readFile('./index.html',function(err,data){
             //写到响应体里
-            res.write(xx);
+            res.write(data);
             //结束响应
             res.end();
         })
@@ -29,8 +29,8 @@ http.createServer(function(req,res){
     }else if(pathname == '/ajax'){
         var result ='';
         //每当服务器收到一段客户端发过来的数据是，就可以累加到result
-        req.on('data',function(bb){
-            result+=bb;
+        req.on('data',function(data){
+            result+=data;
         });
         //当全部数据接收完毕之后，
         req.on('end',function(){
@@ -39,7 +39,7 @@ http.createServer(function(req,res){
             //把当前的对象添加到数组中
             students.push(j);
             //返回全部的学生 因为end只接收字符串，所以要stringify
-            res.end('ok');
+            res.end(JSON.stringify(students));
         });
 
     }else{
